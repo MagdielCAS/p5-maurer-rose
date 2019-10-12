@@ -12,6 +12,8 @@ var dMin = 0;
 var dMax = 360;
 var dStep = 0.1;
 
+var dnoise = true;
+
 var gui;
 
 function setup() {
@@ -20,9 +22,9 @@ function setup() {
   createCanvas(vw, vh);
   angleMode(DEGREES);
   gui = createGui("Maurer Rose params:");
-  gui.addGlobals("n", "d");
+  gui.addGlobals("n", "d", "dnoise");
 
-  noLoop();
+  // noLoop();
 }
 
 function windowResized() {
@@ -31,7 +33,7 @@ function windowResized() {
 
 function draw() {
   background(255);
-  frameRate(1);
+  // frameRate(1);
   vw = windowWidth;
   vh = windowHeight;
   translate(vw / 2, vh / 2);
@@ -67,4 +69,7 @@ function draw() {
     vertex(x, y);
   }
   endShape();
+  if (dnoise) {
+    d = noise(d) + d;
+  }
 }

@@ -13,6 +13,7 @@ var dMax = 360;
 var dStep = 0.1;
 
 var dnoise = true;
+var lightTheme = true;
 
 var gui;
 
@@ -22,7 +23,7 @@ function setup() {
   createCanvas(vw, vh);
   angleMode(DEGREES);
   gui = createGui("Maurer Rose params:");
-  gui.addGlobals("n", "d", "dnoise");
+  gui.addGlobals("n", "d", "dnoise", "lightTheme");
 
   // noLoop();
 }
@@ -32,19 +33,30 @@ function windowResized() {
 }
 
 function draw() {
-  background(255);
+  if (lightTheme) {
+    background(255);
+  } else {
+    background(0);
+  }
   // frameRate(1);
   vw = windowWidth;
   vh = windowHeight;
   translate(vw / 2, vh / 2);
   scale(s);
+  if (lightTheme) {
+    stroke(0);
+  } else {
+    stroke(255);
+  }
 
-  stroke(0);
   strokeWeight(1 / s);
   line(vw / 2, 0, -vw / 2, 0);
   line(0, vh / 2, 0, -vh / 2);
-
-  stroke(0, 0, 255, 255);
+  if (lightTheme) {
+    stroke(0, 0, 255, 255);
+  } else {
+    stroke(255, 255, 255, 158);
+  }
   noFill();
   beginShape();
   strokeWeight(1 / s);
@@ -58,7 +70,11 @@ function draw() {
   }
   endShape();
   noFill();
-  stroke(255, 0, 0, 255);
+  if (lightTheme) {
+    stroke(255, 0, 0, 255);
+  } else {
+    stroke(255, 0, 255, 255);
+  }
   strokeWeight(3 / s);
   beginShape();
   for (let i = 0; i < 361; i++) {
@@ -71,5 +87,6 @@ function draw() {
   endShape();
   if (dnoise) {
     d = noise(d) + d;
+    d = d > 360 ? 0 : d;
   }
 }

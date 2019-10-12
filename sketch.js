@@ -1,13 +1,28 @@
-let vw, vh;
-let n = 2;
-let d = 29;
+var vw, vh;
 let s = 10;
+
+var n = 2;
+var d = 29;
+
+var nMin = 0;
+var nMax = 20;
+var nStep = 1;
+
+var dMin = 0;
+var dMax = 360;
+var dStep = 0.1;
+
+var gui;
 
 function setup() {
   vw = windowWidth;
   vh = windowHeight;
   createCanvas(vw, vh);
   angleMode(DEGREES);
+  gui = createGui("Maurer Rose params:");
+  gui.addGlobals("n", "d");
+
+  noLoop();
 }
 
 function windowResized() {

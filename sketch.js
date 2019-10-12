@@ -12,6 +12,11 @@ var dMin = 0;
 var dMax = 360;
 var dStep = 0.1;
 
+var dvelocity = 1;
+var dvelocityMin = -10;
+var dvelocityMax = 10;
+var dvelocityStep = 0.01;
+
 var dnoise = true;
 var lightTheme = true;
 
@@ -23,7 +28,7 @@ function setup() {
   createCanvas(vw, vh);
   angleMode(DEGREES);
   gui = createGui("Maurer Rose params:");
-  gui.addGlobals("n", "d", "dnoise", "lightTheme");
+  gui.addGlobals("n", "d", "dnoise", "lightTheme", "dvelocity");
 
   // noLoop();
 }
@@ -86,7 +91,7 @@ function draw() {
   }
   endShape();
   if (dnoise) {
-    d = noise(d) + d;
+    d = noise(d) * dvelocity + d;
     d = d > 360 ? 0 : d;
   }
 }
